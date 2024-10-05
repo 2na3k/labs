@@ -1,23 +1,11 @@
 from labs.clients.factory import *
+from labs.clients.impl.gemini import GeminiClient
 
 
-def test_groq_client():
-    """
-    Should use fixure
-    """
-    client = GroqClient(model_name="llama-3.1-8b-instant")
-    response = client.chat(message="hello?")
-
-
-def test_gemini_client():
-    client = GeminiClient(model_name="models/gemini-1.5-flash")
-    response = client.chat(message="hello?")
-    print(response)
-
-
-def test_ollama_client():
-    pass
+def test_get_list_of_available_model():
+    list_models = get_list_of_available_model()
 
 
 def test_client_factory():
-    pass
+    client = ClientFactory.get_client(model_name="gemini-1.5-flash-002")
+    assert isinstance(client, GeminiClient)
