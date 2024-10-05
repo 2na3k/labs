@@ -3,7 +3,7 @@ from labs.clients.impl.gemini import GeminiClient
 
 
 def test_get_list_of_available_model():
-    list_models = get_list_of_available_model()
+    assert len(get_list_of_available_model()) > 0
 
 
 def test_client_factory():

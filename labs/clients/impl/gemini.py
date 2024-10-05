@@ -26,4 +26,5 @@ class GeminiClient(ModelClientBase):
                 model_name=self.model_name, system_instruction=system_prompt
             )
         response = self.client.generate_content(message, **params)
-        return ResponseModel(role=self.model, content=json.loads(response.text))
+
+        return ResponseModel(role=self.model, content=response.text)
