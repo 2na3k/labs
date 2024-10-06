@@ -4,3 +4,4 @@ venv
 .idea
 test.ipynb
 __pycache__
+data

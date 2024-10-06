@@ -11,6 +11,6 @@ def test_groq_client():
 
 
 def test_gemini_client():
-    client = GeminiClient(model_name="models/gemini-1.5-flash")
+    client = GeminiClient(model_name="gemini-1.5-flash")
     response = client.chat(message="hello?")
-    print(response)
+    assert response.content != None
