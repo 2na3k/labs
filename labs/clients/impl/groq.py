@@ -26,11 +26,6 @@ class GroqClient(ModelClientBase):
     def chat(
         self, message: str, params: dict = {}, system_prompt: dict = None
     ) -> ResponseModel:
-        """
-        Response schema (dict):
-        - role: str
-        - content: str
-        """
         system_prompt = (
             system_prompt if system_prompt is not None else self.system_prompt
         )

@@ -9,6 +9,9 @@ class ResponseModel:
 
     @classmethod
     def to_dict(cls):
+        """
+        Just got this for the simplification of the response
+        """
         return {"role": cls.role, "content": cls.content}
 
 
@@ -21,6 +24,8 @@ class ModelClientBase(ABC):
         self.client = None
         self.model = model_name
         self._has_meta()
+        if model_name not in self.list_model:
+            raise Exception(f"The model type '{model_name} 'is not support")
 
     @abstractmethod
     def chat(self, *args, **kwargs) -> ResponseModel:
