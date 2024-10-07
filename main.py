@@ -90,8 +90,7 @@ class App:
             st.session_state.messages.append(
                 dict(
                     role=st.session_state.model_name,
-                    content=prompt,
-                    avatar=AI_AVATAR_ICON,
+                    content=response.content,
                 )
             )
             st.session_state.model_history.append(
@@ -107,8 +106,9 @@ class App:
             )
             self.cache.persist_message(
                 st.session_state.model_history,
-                f'data/{st.session_state.chat_id}-gemini_messages',
+                f'data/{st.session_state.chat_id}-model_messages',
             )
+
 
     def run(self):
         self.load_sidebar()

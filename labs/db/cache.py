@@ -36,7 +36,7 @@ class CahceHandler:
                 f'data/{st.session_state.chat_id}-st_messages'
             )
             st.session_state.model_history = joblib.load(
-                f'data/{st.session_state.chat_id}-gemini_messages'
+                f'data/{st.session_state.chat_id}-model_messages'
             )
             logger.info(f'old cache loaded from chat_id {st.session_state.chat_id}')
         except:
