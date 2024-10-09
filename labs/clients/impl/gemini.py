@@ -1,7 +1,7 @@
 import os, json
 from labs.clients.base import ModelClientBase, ResponseModel
 import google.generativeai as ggai
-
+from labs.logger import logger
 
 class GeminiClient(ModelClientBase):
     """
@@ -19,6 +19,7 @@ class GeminiClient(ModelClientBase):
         self.system_prompt = (
             "You are a helpful assistant."
         )
+        self.model_name = model_name
         self.client = ggai.GenerativeModel(model_name=model_name)
 
     def chat(self, message: str, params: dict = {}, system_prompt: str = None):
@@ -26,6 +27,17 @@ class GeminiClient(ModelClientBase):
             self.client = ggai.GenerativeModel(
                 model_name=self.model_name, system_instruction=system_prompt
             )
-        response = self.client.generate_content(message, **params)
+        try:
+            response = self.client.generate_content(
+                contents=message,
+                generation_config={
+                    "temperature": params.get("temperature"),
+                    "max_output_tokens": params.get("max_output_tokens")
+                }
+            )
+            logger.info(f"response: {response.to_dict()}")
 
-        return ResponseModel(role=self.model, content=response.text)
+            return ResponseModel(role=self.model_name, content=response.text)
+        except Exception as e:
+            logger.error(f"Caught an exception: {e}")
+            return ResponseModel(role=self.model_name, content="Oops, there are some problem with the prompt")

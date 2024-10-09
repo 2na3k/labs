@@ -22,7 +22,7 @@ class ModelClientBase(ABC):
         - init the client, assign that to the self.client
         """
         self.client = None
-        self.model = model_name
+        # self.model_name = model_name
         self._has_meta()
         if model_name not in self.list_model:
             raise Exception(f"The model type '{model_name} 'is not support")

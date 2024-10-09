@@ -29,6 +29,25 @@ class App:
             st.session_state.model = ClientFactory.get_client(
                 model_name=st.session_state.model_name
             )
+            st.write("# Prompts")
+            st.session_state.system_prompt = st.text_area(
+                label="System prompt"
+            )
+            st.session_state.user_prompt = st.text_area(
+                label="User prompt template"
+            )
+
+            st.write("# Parameters")
+            st.session_state.max_token = st.number_input(
+                label="Max token",
+                min_value=0,
+                format="%d",
+                value=None
+            )
+            st.session_state.temperature = st.slider('#### Temperature', 0.0, 2.0, 1.0, 0.1)
+            st.session_state.top_p = st.slider('#### Top p', 0.0, 1.0, 1.0, 0.1)
+            st.session_state.frequency_penalty = st.slider('#### Frequency penalty', -2.0, 2.0, 0.0, 0.1)
+            st.session_state.presence_penalty = st.slider('#### Presence penalty', -2.0, 2.0, 0.0, 0.1)
 
             st.write('# Past Chats')
             if st.session_state.get('chat_id') is None:
@@ -80,7 +99,17 @@ class App:
                 )
             )
             ## Send message to AI
-            response = st.session_state.model.chat(message=prompt)
+            response = st.session_state.model.chat(
+                system_prompt=st.session_state.system_prompt,
+                message=prompt,
+                params={
+                    "max_tokens": st.session_state.max_token,
+                    "top_p": st.session_state.top_p,
+                    "temperature": st.session_state.temperature,
+                    "frequency_penalty": st.session_state.frequency_penalty,
+                    "presence_penalty": st.session_state.presence_penalty
+                }
+            )
             with st.chat_message(
                 name=st.session_state.model_name,
                 avatar=AI_AVATAR_ICON,
