@@ -40,7 +40,7 @@ class GroqClient(ModelClientBase):
             
         response = self.client.chat.completions.create(
             messages=[system_prompt, {"role": "user", "content": message}],
-            model=self.model,
+            model=self.model_name,
             **params,
         ).to_dict()
 
