@@ -7,6 +7,7 @@ from labs.logger import logger
 class CahceHandler:
     """
     Simple cache-on-file module
+    P/s: I don't want to apply pydantic model here
     """
     def __init__(self) -> None:
         self.init_cache()
