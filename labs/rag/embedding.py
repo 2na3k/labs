@@ -2,5 +2,5 @@ class Embedder:
     def __init__(self):
         ...
 
-    def embed(text: str):
+    def embed(self, text: str):
         ...

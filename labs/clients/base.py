@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from pydantic.dataclasses import dataclass
+# from pydantic.dataclasses import dataclass
 
 
 @dataclass
@@ -17,6 +17,7 @@ class ResponseModel:
 
 
 class ModelClientBase(ABC):
+    list_model = []     # meta list model, will be overriden
     def __init__(self, model_name: str):
         """
         what to do in here:
