@@ -8,3 +8,4 @@ ollama
 ruff
 pytest
 joblib
+openai

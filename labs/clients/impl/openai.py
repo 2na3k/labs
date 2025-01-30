@@ -1,24 +1,28 @@
 import os
 from labs.clients.base import ModelClientBase, ResponseModel
-from groq import Groq
+from openai import OpenAI
+
+DEFAULT_ENDPOINT = "http://localhost:11434/v1" if os.environ.get("OPENAI_API_KEY") is None else None
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY") if os.environ.get("OPENAI_API_KEY") is not None else "ollama"
 
 
-class GroqClient(ModelClientBase):
+class OpenAIClient(ModelClientBase):
     """
-    Copied from here: https://console.groq.com/docs/libraries
+    Fuck OpenAI
     """
 
     list_model = [
-        "llama3-8b-8192",
-        "llama-3.1-70b-versatile",
-        "llama-3.1-8b-instant",
-        "llama-3.2-1b-preview",
+        "deepseek-r1:14b",
+        "qwen2.5-coder:14b"
     ]
-
+    
     def __init__(self, model_name):
-        super().__init__(model_name)
-        self.client = Groq(api_key=os.environ.get("GROQ_API_KEY"))
-        self.system_prompt = "you are an helpful asssistant",
+        self.client = OpenAI(
+            base_url = DEFAULT_ENDPOINT,
+            api_key=OPENAI_API_KEY, # required, but unused
+        )
+        self.system_prompt = None
+        self.model_name = model_name
 
     def chat(
         self, message: str, params: dict = {}, system_prompt: str = None
